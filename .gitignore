@@ -1,0 +1,35 @@
+# OS / éditeurs
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Node / JS
+node_modules/
+dist/
+build/
+coverage/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+.eslintcache
+*.tsbuildinfo
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+
+# Frontend (Vite/Next/etc.)
+.next/
+out/
+.svelte-kit/
+.cache/
+
+# DB locales
+*.db
+*.db-journal
+
+# Docker & divers
+**/tmp/

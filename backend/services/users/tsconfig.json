@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    /* === Compilation output === */
+    "target": "es2022",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    /* === Interop avec CommonJS (ex: express) === */
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    /* === Types === */
+    "types": ["node"],
+    "strict": true,
+    "skipLibCheck": true,
+
+    /* === Debug === */
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["dist", "node_modules"]
+}
