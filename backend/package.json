@@ -1,4 +1,14 @@
 {
+	"name": "backend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+		"dev": "pnpm -r --parallel --filter users --filter todo --filter pokemon --filter gateway run dev",
+		"dev:users": "pnpm --filter users run dev",
+		"dev:todo": "pnpm --filter todo run dev",
+		"dev:pokemon": "pnpm --filter pokemon run dev",
+		"dev:gw": "pnpm --filter gateway run dev"
+	},
 	"devDependencies": {
 		"@types/express": "^5.0.3",
 		"@types/jsonwebtoken": "^9.0.10",

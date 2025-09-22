@@ -3,14 +3,18 @@
   "type": "commonjs",
   "scripts": {
     "dev": "nodemon --watch src --exec ts-node src/server.ts",
-    "build": "tsc -p .",
-    "start": "node dist/server.js"
+    "build": "tsc",
+    "prisma:generate": "prisma generate",
+    "start": "node dist/server.js",
+    "test": "echo ok"
   },
   "dependencies": {
     "@prisma/client": "^6.16.2",
     "bcrypt": "^6.0.0",
     "express": "^5.1.0",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "zod": "^4.1.11",
+    "dotenv": "^16.4.5"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
