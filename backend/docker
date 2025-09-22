@@ -1,0 +1,6 @@
+     UID     PID    PPID  TTY        STIME COMMAND
+   lotfi     781       1 cons1    11:41:21 /usr/bin/bash
+   lotfi    3857     781 cons1    21:50:17 /usr/bin/sh
+   lotfi     204       1 cons0    09:33:48 /usr/bin/bash
+   lotfi    3899     204 cons0    22:02:00 /usr/bin/PS
+   lotfi    3860    3857 cons1    21:50:17 /c/Program Files/Docker/Docker/resources/bin/docker
