@@ -7,8 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: backend   # 👈 change le dossier par défaut
-
+        working-directory: backend
     steps:
       - uses: actions/checkout@v4
 
