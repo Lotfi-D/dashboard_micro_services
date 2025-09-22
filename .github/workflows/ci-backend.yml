@@ -1,6 +1,7 @@
-name: CI
-
-on: { push: {}, pull_request: {} }
+name: CI Backend
+on:
+  push: { paths: [ "backend/**", ".github/workflows/ci-backend.yml" ] }
+  pull_request: { paths: [ "backend/**", ".github/workflows/ci-backend.yml" ] }
 
 jobs:
   build-test:
@@ -8,6 +9,7 @@ jobs:
     defaults:
       run:
         working-directory: backend
+
     steps:
       - uses: actions/checkout@v4
 
@@ -18,7 +20,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm
+          # ⚠️ on enlève le "cache: pnpm" car il attend un lockfile
 
       - run: pnpm install --no-frozen-lockfile
 
