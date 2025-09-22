@@ -1,13 +1,14 @@
 name: CI
 
-on:
-  push:
-    branches: [ main ]   # change "main" si ta branche par défaut est autre
-  pull_request:
+on: { push: {}, pull_request: {} }
 
 jobs:
   build-test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend   # 👈 change le dossier par défaut
+
     steps:
       - uses: actions/checkout@v4
 
@@ -20,7 +21,7 @@ jobs:
           node-version: 20
           cache: pnpm
 
-      - run: pnpm install
+      - run: pnpm install --no-frozen-lockfile
 
       - run: pnpm --filter users test
       - run: pnpm --filter todo test
