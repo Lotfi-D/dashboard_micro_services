@@ -1,16 +1,14 @@
 import { Request, Response } from "express";
-import { z } from "zod";
 import bcrypt from "bcrypt";
 import { prisma } from "../db/prima";
 import type { Prisma } from "@prisma/client";
+import { 
+  userCreationSchema, updateUserSchema, 
+  type UserCreation, UpdateUserBody 
+} from "../schemas/user.schema";
 
-const createSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6),
-});
-
-const createUser = async (req: Request, res: Response) => {
-  const parsed = createSchema.safeParse(req.body);
+const createUser = async ( req: Request<{}, UserCreation>, res: Response) => {
+  const parsed = userCreationSchema.safeParse(req.body);
   
   if (!parsed.success) { 
     return res.status(400).json({ error: parsed.error.flatten() });
@@ -64,18 +62,12 @@ const retrieveOneUser = async (req: Request, res: Response) => {
   return res.json(users);
 }
 
-const updateSchema = z.object({
-  email: z.string().email().optional(),
-  password: z.string().min(6).optional(),
-});
-type UpdateBody = z.infer<typeof updateSchema>;
-
 const updateUser = async (
-  req: Request<{ id: string }, unknown, UpdateBody>,
+  req: Request<{ id: string }, unknown, UpdateUserBody>,
   res: Response
 ) => {
   const { id } = req.params;
-  const parsed = updateSchema.safeParse(req.body);
+  const parsed = updateUserSchema.safeParse(req.body);
 
   if (!parsed.success) return res.status(400).json({ error: parsed.error.flatten() });
 
@@ -114,8 +106,8 @@ const deleteUsers = async (req: Request, res: Response) => {
   const { id } = req.params;
   console.log('ID', id)
   try {
-    const user = await prisma.user.delete({ where: { id } });
-    return res.status(200).json({ message: "user has been deleted" }); // No Content
+    await prisma.user.delete({ where: { id } });
+    return res.status(200).json({ message: "user has been deleted" });
     
   } catch (e: any) {
 
