@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "ts-node-dev -P tsconfig.json --respawn --transpile-only src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "test": "echo ok"
   },
   "dependencies": {
     "cors": "^2.8.5",
