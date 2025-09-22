@@ -1,0 +1,91 @@
+services:
+  # === Databases ===
+  postgres:
+    image: postgres:15
+    container_name: users-db
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: usersdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - backend-net
+
+  mongo:
+    image: mongo:6
+    container_name: todos-db
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+    networks:
+      - backend-net
+
+  # === Microservices ===
+  users:
+    build:
+      context: .
+      dockerfile: services/users/Dockerfile
+    container_name: users-service
+    environment:
+      PORT: 3001
+      DATABASE_URL: postgres://user:pass@postgres:5432/usersdb
+    depends_on:
+      - postgres
+    networks:
+      - backend-net
+
+  todo:
+    build:
+      context: .
+      dockerfile: services/todo/Dockerfile
+    container_name: todo-service
+    environment:
+      PORT: 4002
+      MONGO_URL: mongodb://mongo:27017/todosdb
+    depends_on:
+      - mongo
+    networks:
+      - backend-net
+
+  pokemon:
+    build:
+      context: .
+      dockerfile: services/pokemon/Dockerfile
+    container_name: pokemon-service
+    environment:
+      PORT: 4001
+    networks:
+      - backend-net
+
+  # === Gateway ===
+  gateway:
+    build:
+      context: .
+      dockerfile: services/gateway/Dockerfile
+    container_name: gateway-service
+    ports:
+      - "4003:4003"
+    environment:
+      PORT: 4003
+      USERS_URL: http://users:3001
+      TODOS_URL: http://todo:4002
+      POKEMON_URL: http://pokemon:4001
+    depends_on:
+      - users
+      - todo
+      - pokemon
+    networks:
+      - backend-net
+
+networks:
+  backend-net:
+
+volumes:
+  pgdata:
+  mongodata:

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { createUser, deleteUsers, retrieveUsers, retrieveOneUser, updateUser } from "../controllers/users.controller";
 
-const usersRouter = Router();
+const usersRouter: Router = Router();
 
 usersRouter.post("/users/create", createUser);
 usersRouter.get("/users", retrieveUsers);
